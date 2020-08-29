@@ -1,0 +1,38 @@
+<resources>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="app_name">Moorkkanad App</string>
+    <string name="developed_by_ncompuetr_engineering_students_nmajlis_polytechnic_collage" translatable="false">Developed By\nCompuetr Engineering Students\nMajlis Polytechnic Collage</string>
+    <string name="welcome_logo" translatable="false">welcome logo</string>
+    <string name="phone_no">Phone No</string>
+    <string name="enter_your_phone_no_to_login">Enter your Phone No to login</string>
+    <string name="generate_otp">Generate OTP</string>
+    <string name="verify_otp">VERIFY OTP</string>
+    <string name="otp" translatable="false">OTP</string>
+    <string name="enter_verification_code_if_failed_to_detect_automatically">Enter Verification code if failed to detect automatically</string>
+    <string name="your_name_and_home_ward">Your name and home ward</string>
+    <string name="name">Name</string>
+    <string name="ward">Ward</string>
+    <string name="save_continue"><![CDATA[SAVE & CONTINUE]]></string>
+    <string-array name="wards">
+        <item>1, KOLATHUR PALAKAPARAMBA</item>
+        <item>2, KOLATHUR KURUPPATHAL</item>
+        <item>3, KOLATHUR VADEKKEKULAMB</item>
+        <item>4, KOLATHUR CHANDAPPADI</item>
+        <item>5, KOLATHUR ONAPPUDA</item>
+        <item>6, KOLATHUR STATIONPADI</item>
+        <item>7, KOLATHUR AMBALAPPADI</item>
+        <item>8, KOLATHUR ALINKOOTTAM</item>
+        <item>9, PUNNAKKAD</item>
+        <item>10, MOORKKANAD KIZHAKKUMPURAM</item>
+        <item>11, MOORKKANAD KALLUVETTUKUZHI</item>
+        <item>12, MOORKKANAD PADINCHATUMPURAM</item>
+        <item>13, VENGAD KIZHEKKEKARA</item>
+        <item>14, VENGAD KIZHMURI</item>
+        <item>15, VENGAD TOWN</item>
+        <item>16, VENGAD PALLIPPADI</item>
+        <item>17, VENGAD MELMURI</item>
+        <item>18, KOLATHUR THEKKEKARA</item>
+        <item>19, KOLATHUR PADINCHARE KULAMB</item>
+    </string-array>
+</resources>

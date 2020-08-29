@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home_btn"
+        android:title="Home" />
+    <item
+        android:id="@+id/change_language_btn"
+        android:title="Change Language" />
+    <item
+        android:id="@+id/about_us_btn"
+        android:title="About Us" />
+    <item
+        android:id="@+id/logout_btn"
+        android:title="Logout" />
+
+</menu>

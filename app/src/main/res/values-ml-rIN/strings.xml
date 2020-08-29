@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Moorkkanad App</string>
+    <string name="enter_your_phone_no_to_login">ലോഗിൻ ചെയ്യാൻ നിങ്ങളുടെ ഫോൺ നമ്പർ നൽകുക</string>
+    <string name="phone_no">ഫോൺ നമ്പർ</string>
+    <string name="generate_otp">OTP സൃഷ്ടിക്കുക</string>
+    <string name="verify_otp">OTP പരിശോധിക്കുക</string>
+    <string name="enter_verification_code_if_failed_to_detect_automatically">യാന്ത്രികമായി കണ്ടെത്തുന്നതിൽ പരാജയപ്പെട്ടാൽ സ്ഥിരീകരണ കോഡ് നൽകുക</string>
+    <string name="your_name_and_home_ward">നിങ്ങളുടെ പേരും ഹോം വാർഡും</string>
+    <string name="name">പേര്</string>
+    <string name="ward">വാർഡ്</string>
+    <string name="save_continue">" തുടരുക"</string>
+    <string-array name="wards">
+        <item>1, കൊളത്തൂർ പലകപ്പറമ്പ്</item>
+        <item>2, കൊളത്തൂർ കുറുപ്പത്താൽ</item>
+        <item>3, കൊളത്തൂർ വടക്കേ കുളമ്പ്</item>
+        <item>4, കൊളത്തൂർ ചന്തപ്പടി</item>
+        <item>5, കൊളത്തൂർ ഓണപ്പുട</item>
+        <item>6, കൊളത്തൂർ സ്റ്റേഷൻപടി</item>
+        <item>7, കൊളത്തൂർ അമ്പലപ്പടി</item>
+        <item>8, കൊളത്തൂർ ആലുംകൂട്ടം</item>
+        <item>9, പുന്നക്കാട്</item>
+        <item>10, മൂർക്കനാട്  കിഴക്കുംപുറം</item>
+        <item>11, മൂർക്കനാട് കല്ല് വെട്ട് കുഴി</item>
+        <item>12, മൂർക്കനാട് പടിഞ്ഞാറ്റുംപുറം</item>
+        <item>13, വേങ്ങാട് കിഴക്കേക്കര</item>
+        <item>14, വേങ്ങാട് കീഴ്മുറി</item>
+        <item>15, വേങ്ങാട്  ടൌൺ</item>
+        <item>16, വേങ്ങാട് പള്ളിപ്പടി</item>
+        <item>17, വേങ്ങാട് മേൽമുറി</item>
+        <item>18, കൊളത്തൂർ തെക്കേക്കര</item>
+        <item>19, കൊളത്തൂർ പടിഞ്ഞാറെകുളമ്പ്</item>
+    </string-array>
+</resources>
