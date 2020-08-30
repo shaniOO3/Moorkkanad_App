@@ -10,10 +10,16 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -23,11 +29,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private long backPressedTime;
     private Toast backToast;
     Fragment fragment;
+    TextView name, phone, ward;
+    View headerview;
+    FirebaseAuth auth;
+    FirebaseFirestore firestore;
+    String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        auth = FirebaseAuth.getInstance();
+        user = auth.getUid();
+        firestore = FirebaseFirestore.getInstance();
 
         drawerLayout = findViewById(R.id.drawer);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
@@ -35,6 +50,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         NavigationView navigationView = (NavigationView)findViewById(R.id.nav);
+        headerview = navigationView.getHeaderView(0);
+        name = (TextView) headerview.findViewById(R.id.show_name);
+        phone = (TextView) headerview.findViewById(R.id.show_phone_no);
+        ward = (TextView) headerview.findViewById(R.id.show_ward);
+        data();
         navigationView.setNavigationItemSelectedListener(this);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new Home()).commit();
@@ -91,6 +111,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
         drawerLayout.closeDrawer(GravityCompat.START);
         return false;
+    }
+
+    public void data(){
+        firestore.collection("Users").document(user).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    String fname = documentSnapshot.getString("Name");
+                    String fphone = documentSnapshot.getString("Phone No");
+                    String fward = documentSnapshot.getString("Ward");
+
+                    name.setText(fname);
+                    phone.setText(fphone);
+                    ward.setText(fward);
+                }
+            }
+        });
     }
 
 }
