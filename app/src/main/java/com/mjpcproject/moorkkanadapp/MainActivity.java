@@ -5,19 +5,23 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private long backPressedTime;
     private Toast backToast;
+    Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        NavigationView navigationView = (NavigationView)findViewById(R.id.nav);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new Home()).commit();
+        navigationView.setCheckedItem(R.id.home_btn);
 
     }
 
@@ -62,13 +71,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
 
-        getMenuInflater().inflate(R.menu.dawer_menu, menu);
-
-        return super.onCreateOptionsMenu(menu);
+        if (id == R.id.home_btn) {
+            fragment = new Home();
+        }
+        if (id == R.id.change_language_btn){
+            fragment = new ChangeLanguage();
+        }
+        if (id == R.id.about_us_btn){
+            fragment = new AboutUs();
+        }
+        if (id == R.id.logout_btn){
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(getApplicationContext(),Login.class));
+            finish();
+        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return false;
     }
-
-
-
 }

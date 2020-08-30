@@ -12,20 +12,21 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:fontFamily="@font/baloo"
-        android:textColor="#000" />
+        android:textColor="#02127C"
+        android:text=""/>
 
     <TextView
         android:id="@+id/show_phone_no"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:textColor="#000"
-        android:layout_marginTop="10dp"/>
+        android:textColor="#02127C"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/show_ward"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:textColor="#000"
-        android:layout_marginTop="10dp"/>
+        android:textColor="#02127C"
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>
