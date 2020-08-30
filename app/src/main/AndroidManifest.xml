@@ -9,17 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PersonalInfo"
-            android:screenOrientation="portrait"
-            android:label="PERSONAL INFO"/>
-        <activity android:name=".Otp"
-            android:parentActivityName=".Login"
+        <activity
+            android:name=".PersonalInfo"
+            android:label="PERSONAL INFO"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Otp"
             android:label="OTP"
-            android:screenOrientation="portrait"/>
+            android:parentActivityName=".Login"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Login"
-            android:screenOrientation="portrait"
-            android:label="LOGIN"/>
+            android:label="LOGIN"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Welcome"
             android:screenOrientation="portrait">
