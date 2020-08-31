@@ -64,10 +64,12 @@ public class PersonalInfo extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.getResult().exists()){
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                        if (task.isSuccessful()){
+                            DocumentSnapshot documentSnapshot = task.getResult();
+                            String fname = documentSnapshot.getString("Name");
+                            String fward = documentSnapshot.getString("Ward");
+                            name.setText(fname);
+                            ward.setText(fward);
                         }
                     }
                 });

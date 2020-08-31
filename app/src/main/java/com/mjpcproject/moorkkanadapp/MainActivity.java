@@ -2,12 +2,17 @@ package com.mjpcproject.moorkkanadapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +25,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadLocale();
         setContentView(R.layout.activity_main);
 
         auth = FirebaseAuth.getInstance();
@@ -96,21 +104,65 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.home_btn) {
             fragment = new Home();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
         }
         if (id == R.id.change_language_btn){
-            fragment = new ChangeLanguage();
+            changelanguagedialogbox();
         }
         if (id == R.id.about_us_btn){
             fragment = new AboutUs();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
         }
         if (id == R.id.logout_btn){
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(getApplicationContext(),Login.class));
             finish();
         }
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+
         drawerLayout.closeDrawer(GravityCompat.START);
         return false;
+    }
+
+    private void changelanguagedialogbox() {
+        final String[] listitems = {"English","മലയാളം"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle(R.string.change_language);
+        builder.setIcon(R.drawable.language);
+        builder.setSingleChoiceItems(listitems, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (i == 0){
+                    setLocale("en");
+                    recreate();
+                }
+                else if (i == 1){
+                    setLocale("ml");
+                    recreate();
+                }
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
+
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("My_Lang", lang);
+        editor.apply();
+    }
+
+    public void loadLocale() {
+
+        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefs.getString("My_Lang", "");
+        setLocale(language);
     }
 
     public void data(){
