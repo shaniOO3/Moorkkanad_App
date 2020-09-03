@@ -91,7 +91,8 @@ public class Home extends Fragment {
         card2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getActivity(), BloodBank.class);
+                startActivity(intent);
             }
         });
 

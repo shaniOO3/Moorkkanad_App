@@ -41,4 +41,14 @@
     <string name="change_language">Change Language</string>
     <string name="about_us">About Us</string>
     <string name="logout">Logout</string>
+    <string-array name="bloodgroups">
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
 </resources>

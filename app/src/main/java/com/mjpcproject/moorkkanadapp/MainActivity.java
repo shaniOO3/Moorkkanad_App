@@ -63,6 +63,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         phone = (TextView) headerview.findViewById(R.id.show_phone_no);
         ward = (TextView) headerview.findViewById(R.id.show_ward);
         data();
+        headerview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), PersonalInfo.class));
+            }
+        });
         navigationView.setNavigationItemSelectedListener(this);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new Home()).commit();

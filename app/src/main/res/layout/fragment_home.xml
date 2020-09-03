@@ -55,7 +55,8 @@
                         android:src="@drawable/coronavirus"/>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:layout_width="124dp"
                         android:layout_height="wrap_content"
                         android:text="COVID-19 UPDATES"/>
 
@@ -87,12 +88,13 @@
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/coronavirus"/>
+                        android:src="#ffffff"/>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:layout_width="124dp"
                         android:layout_height="wrap_content"
-                        android:text="COVID-19 UPDATES"/>
+                        android:text="COMING SOON...."/>
 
                 </LinearLayout>
 
@@ -119,12 +121,16 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
-                    <TextView
+                    <ImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
+                        android:src="@drawable/blood"/>
+
+                    <TextView
                         android:gravity="center"
-                        android:text="what to do?"
-                        android:textSize="24dp" />
+                        android:layout_width="124dp"
+                        android:layout_height="wrap_content"
+                        android:text="BLOOD BANK"/>
 
                 </LinearLayout>
 
