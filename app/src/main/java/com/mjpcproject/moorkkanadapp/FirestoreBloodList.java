@@ -6,9 +6,10 @@ public class FirestoreBloodList {
     private String phone;
     private String blood;
 
-    private FirestoreBloodList(){}
+    private FirestoreBloodList() {
+    }
 
-    private FirestoreBloodList(String name, String phone, String blood){
+    private FirestoreBloodList(String name, String phone, String blood) {
         this.name = name;
         this.phone = phone;
         this.blood = blood;

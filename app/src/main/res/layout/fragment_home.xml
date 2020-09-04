@@ -29,6 +29,7 @@
             android:rowCount="3">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/card0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
@@ -39,8 +40,7 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="@color/light"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="6dp"
-                android:id="@+id/card0">
+                app:cardElevation="6dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -52,13 +52,13 @@
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/coronavirus"/>
+                        android:src="@drawable/coronavirus" />
 
                     <TextView
-                        android:gravity="center"
                         android:layout_width="124dp"
                         android:layout_height="wrap_content"
-                        android:text="COVID-19 UPDATES"/>
+                        android:gravity="center"
+                        android:text="COVID-19 UPDATES" />
 
                 </LinearLayout>
 
@@ -88,13 +88,13 @@
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="#ffffff"/>
+                        android:src="#ffffff" />
 
                     <TextView
-                        android:gravity="center"
                         android:layout_width="124dp"
                         android:layout_height="wrap_content"
-                        android:text="COMING SOON...."/>
+                        android:gravity="center"
+                        android:text="COMING SOON...." />
 
                 </LinearLayout>
 
@@ -124,13 +124,13 @@
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/blood"/>
+                        android:src="@drawable/blood" />
 
                     <TextView
-                        android:gravity="center"
                         android:layout_width="124dp"
                         android:layout_height="wrap_content"
-                        android:text="BLOOD BANK"/>
+                        android:gravity="center"
+                        android:text="BLOOD BANK" />
 
                 </LinearLayout>
 

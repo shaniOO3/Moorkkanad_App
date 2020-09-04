@@ -38,28 +38,26 @@ public class Welcome extends AppCompatActivity {
             public void run() {
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                     databaseCheck();
-                }
-                else {
+                } else {
                     startActivity(new Intent(getApplicationContext(), Login.class));
                     finish();
                 }
             }
-        },4000);
+        }, 4000);
 
     }
 
-    public void databaseCheck(){
+    public void databaseCheck() {
 
         firebaseFirestore.collection("Users").document(currentUser).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.getResult().exists()){
+                        if (task.getResult().exists()) {
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
                             finish();
-                        }
-                        else {
+                        } else {
                             startActivity(new Intent(getApplicationContext(), PersonalInfo.class));
                             finish();
                         }

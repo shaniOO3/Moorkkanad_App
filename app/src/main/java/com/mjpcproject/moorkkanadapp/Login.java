@@ -30,15 +30,13 @@ public class Login extends AppCompatActivity {
         editor.putString("PhoneNo", phoneno);
         editor.apply();
 
-        if (phoneno.isEmpty()){
+        if (phoneno.isEmpty()) {
             PhoneNo.setError("Please enter your number");
             PhoneNo.requestFocus();
-        }
-        else if (phoneno.length() != 10){
+        } else if (phoneno.length() != 10) {
             PhoneNo.setError("Please enter a valid number");
             PhoneNo.requestFocus();
-        }
-        else {
+        } else {
             Intent intent = new Intent(getApplicationContext(), Otp.class);
             startActivity(intent);
         }

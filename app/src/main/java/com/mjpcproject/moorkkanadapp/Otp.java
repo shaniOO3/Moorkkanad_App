@@ -18,6 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+
 import java.util.concurrent.TimeUnit;
 
 public class Otp extends AppCompatActivity {
@@ -44,11 +45,10 @@ public class Otp extends AppCompatActivity {
 
         String code = otp.getText().toString();
 
-        if (code.isEmpty()){
+        if (code.isEmpty()) {
             otp.setError("OTP needed to continue...");
             otp.requestFocus();
-        }
-        else if (code.length() < 6){
+        } else if (code.length() < 6) {
             otp.setError("Wrong OTP...");
         }
         verifyCode(code);
@@ -58,7 +58,7 @@ public class Otp extends AppCompatActivity {
     private void sendVerificationCodeToUser(String phoneNo) {
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                "+91" +  phoneNo,        // Phone number to verify
+                "+91" + phoneNo,        // Phone number to verify
                 60,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 TaskExecutors.MAIN_THREAD,               // Activity (for callback binding)
@@ -78,7 +78,7 @@ public class Otp extends AppCompatActivity {
         public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
 
             String code = phoneAuthCredential.getSmsCode();
-            if (code != null){
+            if (code != null) {
                 verifyCode(code);
             }
 
@@ -90,7 +90,7 @@ public class Otp extends AppCompatActivity {
         }
     };
 
-    private void verifyCode(String codeByUser){
+    private void verifyCode(String codeByUser) {
 
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(vCodeBySystem, codeByUser);
         signinUserByCredential(credential);
@@ -106,13 +106,12 @@ public class Otp extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Intent intent = new Intent(getApplicationContext(), PersonalInfo.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                             finish();
-                        }
-                        else {
+                        } else {
                             Toast.makeText(Otp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
@@ -120,7 +119,6 @@ public class Otp extends AppCompatActivity {
                 });
 
     }
-
 
 
 }

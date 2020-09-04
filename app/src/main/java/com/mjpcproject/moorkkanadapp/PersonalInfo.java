@@ -58,13 +58,13 @@ public class PersonalInfo extends AppCompatActivity {
 
     }
 
-    public void databaseCheck(){
+    public void databaseCheck() {
 
         firebaseFirestore.collection("Users").document(currentUser).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             DocumentSnapshot documentSnapshot = task.getResult();
                             String fname = documentSnapshot.getString("Name");
                             String fward = documentSnapshot.getString("Ward");
@@ -84,15 +84,13 @@ public class PersonalInfo extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("Settings", MODE_PRIVATE);
         String phoneNo = sharedPreferences.getString("PhoneNo", "");
 
-        if (mname.isEmpty()){
+        if (mname.isEmpty()) {
             name.setError("please enter your name");
             name.requestFocus();
-        }
-        else if (mward.isEmpty()){
+        } else if (mward.isEmpty()) {
             ward.setError("please select your ward");
             ward.requestFocus();
-        }
-        else {
+        } else {
             Map<String, Object> user = new HashMap<>();
             user.put("Name", mname);
             user.put("Phone No", phoneNo);

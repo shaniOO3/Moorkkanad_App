@@ -27,10 +27,9 @@ public class coronaupdate extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (webview.canGoBack()){
+        if (webview.canGoBack()) {
             webview.goBack();
-        }
-        else {
+        } else {
             super.onBackPressed();
         }
     }

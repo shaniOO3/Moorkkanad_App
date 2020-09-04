@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        NavigationView navigationView = (NavigationView)findViewById(R.id.nav);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav);
         headerview = navigationView.getHeaderView(0);
         name = (TextView) headerview.findViewById(R.id.show_name);
         phone = (TextView) headerview.findViewById(R.id.show_phone_no);
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (toggle.onOptionsItemSelected(item)){
+        if (toggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -85,19 +85,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else{
+        } else {
             if (backPressedTime + 2000 > System.currentTimeMillis()) {
                 backToast.cancel();
                 super.onBackPressed();
                 moveTaskToBack(true);
                 System.exit(0);
 
-            }
-            else {
-                backToast = Toast.makeText(getBaseContext(),"Press back again to exit", Toast.LENGTH_SHORT);
+            } else {
+                backToast = Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT);
                 backToast.show();
             }
             backPressedTime = System.currentTimeMillis();
@@ -112,16 +110,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragment = new Home();
             getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
         }
-        if (id == R.id.change_language_btn){
+        if (id == R.id.change_language_btn) {
             changelanguagedialogbox();
         }
-        if (id == R.id.about_us_btn){
+        if (id == R.id.about_us_btn) {
             fragment = new AboutUs();
             getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
         }
-        if (id == R.id.logout_btn){
+        if (id == R.id.logout_btn) {
             FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(getApplicationContext(),Login.class));
+            startActivity(new Intent(getApplicationContext(), Login.class));
             finish();
         }
 
@@ -130,18 +128,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void changelanguagedialogbox() {
-        final String[] listitems = {"English","മലയാളം"};
+        final String[] listitems = {"English", "മലയാളം"};
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(R.string.change_language);
         builder.setIcon(R.drawable.language);
         builder.setSingleChoiceItems(listitems, -1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (i == 0){
+                if (i == 0) {
                     setLocale("en");
                     recreate();
-                }
-                else if (i == 1){
+                } else if (i == 1) {
                     setLocale("ml");
                     recreate();
                 }
@@ -171,11 +168,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setLocale(language);
     }
 
-    public void data(){
+    public void data() {
         firestore.collection("Users").document(user).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     DocumentSnapshot documentSnapshot = task.getResult();
                     String fname = documentSnapshot.getString("Name");
                     String fphone = documentSnapshot.getString("Phone No");

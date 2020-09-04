@@ -2,10 +2,15 @@ package com.mjpcproject.moorkkanadapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +18,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -31,7 +38,8 @@ import java.util.Arrays;
 
 public class BloodBank extends AppCompatActivity {
 
-    String cuser, bloodgroup;
+    private static final int request_call = 1;
+    String cuser, bloodgroup, no;
     FirebaseAuth auth;
     FirebaseFirestore firebaseFirestore;
     RecyclerView bloodbank;
@@ -73,23 +81,21 @@ public class BloodBank extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.getResult().exists()){
+                        if (task.getResult().exists()) {
                             remove.setVisibility(View.VISIBLE);
-                        }
-                        else {
+                        } else {
                             add.setVisibility(View.VISIBLE);
                         }
                     }
                 });
 
 
-
     }
 
-    public void recyclerview_bloodbank(){
-        //Query
+    public void recyclerview_bloodbank() {
+
         Query query = firebaseFirestore.collection("BloodBank").whereEqualTo("blood", bloodgroup);
-        //Recycleroptions
+
         FirestoreRecyclerOptions<FirestoreBloodList> options = new FirestoreRecyclerOptions.Builder<FirestoreBloodList>()
                 .setQuery(query, FirestoreBloodList.class).build();
 
@@ -102,10 +108,19 @@ public class BloodBank extends AppCompatActivity {
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull BloodlistViewHolder holder, int position, @NonNull FirestoreBloodList model) {
+            protected void onBindViewHolder(@NonNull final BloodlistViewHolder holder, int position, @NonNull FirestoreBloodList model) {
                 holder.list_name.setText(model.getName());
                 holder.list_blood.setText(model.getBlood());
                 holder.list_phone.setText(model.getPhone());
+
+                holder.call.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        no = "tel:" + holder.list_phone.getText().toString();
+                        makecall();
+                    }
+                });
+
             }
         };
 
@@ -115,11 +130,33 @@ public class BloodBank extends AppCompatActivity {
         adapter.startListening();
     }
 
+    private void makecall() {
+        if (ContextCompat.checkSelfPermission(BloodBank.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(BloodBank.this, new String[]{Manifest.permission.CALL_PHONE}, request_call);
+        } else {
+            Intent intent = new Intent((Intent.ACTION_CALL));
+            intent.setData(Uri.parse(no));
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == request_call) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                makecall();
+            } else {
+                Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     private class BloodlistViewHolder extends RecyclerView.ViewHolder {
 
         TextView list_name;
         TextView list_blood;
         TextView list_phone;
+        ImageView call;
 
         public BloodlistViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -127,9 +164,11 @@ public class BloodBank extends AppCompatActivity {
             list_name = itemView.findViewById(R.id.donarname);
             list_blood = itemView.findViewById(R.id.donarblood);
             list_phone = itemView.findViewById(R.id.donarphone);
+            call = itemView.findViewById(R.id.call);
 
         }
     }
+
 
     @Override
     protected void onStop() {
