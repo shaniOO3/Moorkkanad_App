@@ -28,7 +28,6 @@ public class Welcome extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         getSupportActionBar().hide();
 
-        //welcome
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getUid();
         firebaseFirestore = FirebaseFirestore.getInstance();
