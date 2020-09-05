@@ -17,6 +17,7 @@ import java.util.TimerTask;
 
 public class Welcome extends AppCompatActivity {
 
+    //welcome
     Timer timer;
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth auth;
