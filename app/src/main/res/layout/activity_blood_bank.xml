@@ -32,14 +32,16 @@
         android:id="@+id/firestore_blood_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/blood_add_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="56dp"
         android:src="@drawable/ic_baseline_add_24"
         android:visibility="invisible"
         app:maxImageSize="40dp" />
@@ -49,9 +51,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="56dp"
         android:src="@drawable/ic_baseline_remove_24"
         android:visibility="invisible"
         app:maxImageSize="40dp" />
+
+    <TextView
+        android:id="@+id/quote"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:textStyle="bold|italic"
+        android:textColor="#28AAE4"
+        android:textSize="20sp"
+        android:text="'Nothing is more presious gift than gifting your life to someone in liquid form.'  Blood,it\'s liquid life.    DONATE LIFE!"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

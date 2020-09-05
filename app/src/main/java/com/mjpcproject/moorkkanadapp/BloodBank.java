@@ -53,12 +53,14 @@ public class BloodBank extends AppCompatActivity {
     FirestoreRecyclerAdapter adapter;
     FloatingActionButton add, remove;
     Spinner spinner;
+    TextView quote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blood_bank);
 
+        quote = findViewById(R.id.quote);
         auth = FirebaseAuth.getInstance();
         cuser = auth.getUid();
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -67,6 +69,7 @@ public class BloodBank extends AppCompatActivity {
         remove = findViewById(R.id.blood_remove_btn);
         spinner = findViewById(R.id.spinner);
 
+        quote.setSelected(true);
         add_and_remove();
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this, R.array.bloodgroups, android.R.layout.simple_spinner_item);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
