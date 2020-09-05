@@ -1,6 +1,7 @@
 package com.mjpcproject.moorkkanadapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -26,20 +28,25 @@ import android.widget.Toast;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BloodBank extends AppCompatActivity {
 
+    int position = 0;
     private static final int request_call = 1;
-    String cuser, bloodgroup, no;
+    String cuser, bloodgroup, no, selectedblood, cusername, cuserphone;
     FirebaseAuth auth;
     FirebaseFirestore firebaseFirestore;
     RecyclerView bloodbank;
@@ -60,6 +67,7 @@ public class BloodBank extends AppCompatActivity {
         remove = findViewById(R.id.blood_remove_btn);
         spinner = findViewById(R.id.spinner);
 
+        add_and_remove();
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this, R.array.bloodgroups, android.R.layout.simple_spinner_item);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
@@ -77,19 +85,100 @@ public class BloodBank extends AppCompatActivity {
             }
         });
 
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                add();
+            }
+        });
+
+        remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                remove();
+            }
+        });
+
+    }
+
+    public void add_and_remove() {
         firebaseFirestore.collection("BloodBank").document(cuser).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.getResult().exists()) {
                             remove.setVisibility(View.VISIBLE);
+                            add.setVisibility(View.INVISIBLE);
                         } else {
                             add.setVisibility(View.VISIBLE);
+                            remove.setVisibility(View.INVISIBLE);
                         }
                     }
                 });
+    }
 
+    public void add() {
+        firebaseFirestore.collection("Users").document(cuser).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot documentSnapshot = task.getResult();
+                            cusername = documentSnapshot.getString("Name");
+                            cuserphone = documentSnapshot.getString("Phone No");
+                        }
+                    }
+                });
+        final String[] listgroups = getResources().getStringArray(R.array.bloodgroups);
+        AlertDialog.Builder builder = new AlertDialog.Builder(BloodBank.this);
+        builder.setTitle("Select your blood group");
+        builder.setIcon(R.drawable.blood_dialog_icon);
+        builder.setSingleChoiceItems(listgroups, position, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                position = i;
+                selectedblood = listgroups[i];
+            }
+        });
+        builder.setPositiveButton("DONATE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Map<String, Object> data = new HashMap<>();
+                data.put("name", cusername);
+                data.put("phone", cuserphone);
+                data.put("blood", selectedblood);
 
+                DocumentReference documentReference = firebaseFirestore.collection("BloodBank").document(cuser);
+                documentReference.set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(BloodBank.this, "ADDED SUCCESSFULLY", Toast.LENGTH_SHORT).show();
+                        add.setVisibility(View.INVISIBLE);
+                        remove.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        });
+        builder.setNegativeButton("CANCLE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+    public void remove() {
+        firebaseFirestore.collection("BloodBank").document(cuser).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(BloodBank.this, "REMOVED SUCCESSFULLY", Toast.LENGTH_SHORT).show();
+                remove.setVisibility(View.INVISIBLE);
+                add.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     public void recyclerview_bloodbank() {
