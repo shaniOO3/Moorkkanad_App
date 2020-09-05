@@ -36,7 +36,7 @@
         <item>19, KOLATHUR PADINCHARE KULAMB</item>
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="moorkkanad_panchayath">MOORKKANAD PANCHAYATH</string>
+    <string name="moorkkanad_panchayath">MOORKKANAD\nPANCHAYATH</string>
     <string name="home">Home</string>
     <string name="change_language">Change Language</string>
     <string name="about_us">About Us</string>

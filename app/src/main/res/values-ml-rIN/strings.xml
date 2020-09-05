@@ -31,7 +31,7 @@
         <item>18, കൊളത്തൂർ തെക്കേക്കര</item>
         <item>19, കൊളത്തൂർ പടിഞ്ഞാറെകുളമ്പ്</item>
     </string-array>
-    <string name="moorkkanad_panchayath">"മൂർക്കനാട് പഞ്ചായത്ത് "</string>
+    <string name="moorkkanad_panchayath">"മൂർക്കനാട്\nപഞ്ചായത്ത് "</string>
     <string name="home">ഹോം</string>
     <string name="change_language">ഭാഷ മാറ്റുക</string>
     <string name="about_us">ഞങ്ങളേക്കുറിച്ച്</string>
